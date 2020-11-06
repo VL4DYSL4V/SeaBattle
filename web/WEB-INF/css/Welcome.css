@@ -1,0 +1,34 @@
+.contentHolder{
+    border: double bisque;
+    width: auto;
+    margin: auto;
+    display: table;
+    overflow: auto;
+}
+
+.contentContainerRow{
+    width: 100%;
+    float: top;
+    box-sizing: border-box;
+}
+
+.contentContainer{
+    width: 16vw;
+    height: 16vw;
+    margin: 1vw;
+    float: left;
+    border: double bisque;
+    
+    background-image: url("http://i.piccy.info/i9/052b0c5f1357e21d99c528052c8a05b4/1604181267/104558/1403093/sandBackground_800.jpg");
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: black;
+}
+
+.containerAvatar{
+    width: 8vw;
+    height: 8vw;
+    padding: 0.5vw;
+}
+
+

@@ -1,0 +1,50 @@
+.header{
+    font: 2vw Arial, sans-serif;
+    padding-bottom: 3vh;
+}
+
+.centeredText{
+    text-align: center;
+}
+
+.standardBrightFontColor{
+    color:seashell;
+}
+
+.standardDarkFontColor{
+    color: black;
+}
+
+.standardTextFont{
+    font: 1vw Arial, sans-serif;
+}
+
+.bigTextFont{
+    font: 1.35vw Arial, sans-serif;
+}
+
+.seaBackground{/*background-image: url("/picture/SeaWallpaper4.jpg");*/
+    /*http://i.piccy.info/i9/49ae99237eb06e84bef113a554c6017b/1604073835/92586/1403093/SeaWallpaper4_800.jpg*/
+    /*http://i.piccy.info/i9/69dcfcbd229a9b5745bd5f75688e04e8/1604074205/95662/1403093/SeaWallpaper1_800.jpg*/
+    /*http://i.piccy.info/i9/62703d00de7929b9e30f0945947950a4/1604074336/139520/1403093/SeaWallpaper3_800.jpg*/
+    background-image: url("http://i.piccy.info/i9/62703d00de7929b9e30f0945947950a4/1604074336/139520/1403093/SeaWallpaper3_800.jpg");
+    background-size: cover;
+}
+
+.centerElementWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+input[type=submit]{
+    font-size: 1.35vw;
+    border: 0.1vw black solid;
+    background: transparent;
+}
+

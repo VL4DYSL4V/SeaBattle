@@ -1,0 +1,23 @@
+.formHolder {
+    border: double bisque;
+    width: border-box;
+    height: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.form{
+    background-image: url("http://i.piccy.info/i9/052b0c5f1357e21d99c528052c8a05b4/1604181267/104558/1403093/sandBackground_800.jpg");
+    border: double bisque;
+    display: table;
+    margin: 1vw;
+}
+
+.formRow{
+    display: table-row;
+}
+
+.formCell{
+    display: table-cell;
+    padding-bottom: 0.5vw;
+}
