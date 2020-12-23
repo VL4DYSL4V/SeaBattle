@@ -1,52 +1,41 @@
 package game.entity;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
-//@XmlRootElement(name = "Coordinates")
-public class Coordinates implements Serializable {
-//    @XmlElement
-    private Integer x = 0;
-//    @XmlElement
-    private Integer y = 0;
+public final class Coordinates {
 
-    private static final long serialVersionUID = -858568786997L;
+    private static final Pattern stringPattern = Pattern.compile("-?\\d+ - -?\\d+");
+    private final int x;
+    private final int y;
 
-
-    private Coordinates(){
-
-    }
-
-    public Coordinates(Integer x, Integer y) {
+    public Coordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
-    public static Coordinates parse(String s){
-        if(s == null || !s.matches("-?\\d+ - -?\\d+")){
-            throw new IllegalArgumentException();
-        }
-        String[] coords = s.split(" - ");
-        return new Coordinates(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
-    }
+//    public static Coordinates parse(String s) {
+//        if (s == null || !stringPattern.matcher(s).matches()) {
+//            throw new IllegalArgumentException("Invalid coordinate format");
+//        }
+//        String[] coords = s.split(" - ");
+//        return new Coordinates(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
+//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinates that = (Coordinates) o;
-        return x.equals(that.x) &&
-                y.equals(that.y);
+        return x == that.x && y == that.y;
     }
 
     @Override

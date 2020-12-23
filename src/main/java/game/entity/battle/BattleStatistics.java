@@ -3,14 +3,14 @@ package game.entity.battle;
 import game.enums.FiringResult;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class BattleStatistics implements Serializable {
+public final class BattleStatistics implements Serializable {
 
-    private Map<FiringResult, Integer> statisticsFirst =  new HashMap<>();
-    private Map<FiringResult, Integer> statisticsSecond = new HashMap<>();
+    private Map<FiringResult, Integer> statisticsFirst =  new EnumMap<>(FiringResult.class);
+    private Map<FiringResult, Integer> statisticsSecond = new EnumMap<>(FiringResult.class);
 
     private static final long serialVersionUID = 3348698559001402439L;
 

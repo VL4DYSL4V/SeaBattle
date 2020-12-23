@@ -17,16 +17,16 @@
 </div>
 <div class="centerElementWrapper">
     <div class="formHolder standardDarkFontColor bigTextFont">
-        <form:form method="post" modelAttribute="user" cssClass="form">
+        <form:form method="post" modelAttribute="signInForm" cssClass="form">
             <div class="formRow">
                 <div class="formCell">
                     <spring:message code="form.login" text="Login"/>
                 </div>
                 <div class="formCell">
-                    <form:input path="name"/>
+                    <form:input path="login"/>
                 </div>
                 <div class="formCell">
-                    <form:errors path="name" cssClass="error"/>
+                    <form:errors path="login" cssClass="error"/>
                 </div>
             </div>
             <div class="formRow">

@@ -4,12 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/main")
-public class MainController {
+public final class MainController {
 
     @GetMapping
-    public String mainPage(){
+    public String mainPage(HttpServletRequest request){
+        if(request.getSession().getAttribute("user") == null){
+            return "welcome";
+        }
         return "main";
     }
+
 }

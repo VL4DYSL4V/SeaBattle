@@ -1,6 +1,6 @@
 package game.exception;
 
-public class GameOverException extends Exception {
+public final class GameOverException extends Exception {
     public GameOverException() {
     }
 

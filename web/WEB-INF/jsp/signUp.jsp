@@ -23,10 +23,10 @@
                     <spring:message code="form.login" text="Login"/>
                 </div>
                 <div class="formCell">
-                    <form:input path="name"/>
+                    <form:input path="login"/>
                 </div>
                 <div class="formCell">
-                    <form:errors path="name" cssClass="error"/>
+                    <form:errors path="login" cssClass="error"/>
                 </div>
             </div>
             <div class="formRow">

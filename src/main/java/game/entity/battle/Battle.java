@@ -2,6 +2,7 @@ package game.entity.battle;
 
 import com.sun.istack.internal.Nullable;
 import game.entity.Coordinates;
+import game.entity.FieldDimension;
 import game.entity.Ship;
 import game.enums.FiringResult;
 import game.enums.Level;
@@ -10,44 +11,24 @@ import game.exception.GameOverException;
 import game.moveStrategy.MoveStrategy;
 import game.service.FieldGenerator;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-public class Battle implements Serializable {
-    private BattleContext battleContext = new BattleContext();
+public final class Battle{
+
+    private BattleContext battleContext;
     private BattleStatistics battleStatistics = new BattleStatistics();
-
-    private static final long serialVersionUID = -2257822420997975557L;
-
-    public Battle() {
-    }
 
     private Battle(BattleContext battleContext) {
         this.battleContext = battleContext;
     }
 
-    public static Battle generateClientClientBattle() {
-        FieldGenerator fieldGenerator = new FieldGenerator();
-        Collection<Ship> firstPlayerShips = fieldGenerator.createShips();
-        Collection<Ship> secondPlayerShip = fieldGenerator.createShips();
-        return Battle.clientClientBattle(firstPlayerShips, secondPlayerShip);
-    }
-
     public static Battle generateClientServerBattle(Level level) {
         FieldGenerator fieldGenerator = new FieldGenerator();
-        Collection<Ship> clientShips = fieldGenerator.createShips();
-        Collection<Ship> serverShips = fieldGenerator.createShips();
-        return Battle.clientServerBattle(clientShips, serverShips, level);
-    }
-
-    private static Battle clientClientBattle(Collection<Ship> firstClientShip, Collection<Ship> secondClientShips) {
-        return new Battle(BattleContext.clientClientContext(firstClientShip, secondClientShips));
-    }
-
-    private static Battle clientServerBattle(Collection<Ship> clientShips, Collection<Ship> serverShips,
-                                            Level level) {
-        return new Battle(BattleContext.clientServerContext(clientShips, serverShips, level));
+        Collection<Ship> clientShips = fieldGenerator.createShipsOnStandardField();
+        Collection<Ship> serverShips = fieldGenerator.createShipsOnStandardField();
+        FieldDimension fieldDimension = new FieldDimension(10, 10);
+        return new Battle(BattleContext.clientServerContext(clientShips, serverShips, level, fieldDimension));
     }
 
     public FiringResult shootAtFirstPlayer(Coordinates coordinates) throws GameOverException {
@@ -118,14 +99,6 @@ public class Battle implements Serializable {
     @Nullable
     public MoveStrategy getServerMoveStrategy() {
         return battleContext.getMoveStrategy();
-    }
-
-    public boolean isServerClientBattle() {
-        return battleContext.isClientServerContext();
-    }
-
-    public boolean isClientClientBattle() {
-        return !isServerClientBattle();
     }
 
     public Map<FiringResult, Integer> getStatisticsFirst() {

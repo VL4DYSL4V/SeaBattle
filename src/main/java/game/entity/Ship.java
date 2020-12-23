@@ -2,34 +2,17 @@ package game.entity;
 
 import game.enums.Placement;
 
-import javax.xml.bind.annotation.*;
-import java.io.Serializable;
 import java.util.*;
 
-//@XmlRootElement(name = "Ship")
-//@XmlAccessorType(XmlAccessType.FIELD)
-public class Ship implements Cloneable, Serializable {
+public final class Ship{
 
-//    @XmlElement
     private Integer deckAmount;
-//    @XmlElement
     private Placement placement;
-//    @XmlElement
     private Coordinates leftUpperCornerCoordinates;
-//    @XmlElementWrapper
-//    @XmlElement
     private final Collection<Coordinates> damagedCoordinates = new HashSet<>(4);
-//    @XmlElementWrapper
-//    @XmlElement
     private Collection<Coordinates> occupiedCoordinates;
 
-    private static final long serialVersionUID = 482341466844L;
-
-    private Ship(){
-
-    }
-
-    private Ship(Ship ship){
+    public Ship(Ship ship){
         this.deckAmount = ship.deckAmount;
         this.placement = ship.placement;
         this.leftUpperCornerCoordinates = ship.leftUpperCornerCoordinates;
@@ -112,11 +95,6 @@ public class Ship implements Cloneable, Serializable {
                 ", placement = " + placement +
                 ", coordinates = " + leftUpperCornerCoordinates +
                 "\n}";
-    }
-
-    @Override
-    public Ship clone(){
-        return new Ship(this);
     }
 
     public Collection<Coordinates> getDamagedCoordinates() {

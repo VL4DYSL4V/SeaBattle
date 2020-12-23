@@ -1,8 +1,8 @@
-package entity;
+package util;
 
 import java.util.Objects;
 
-public class Pair<T> {
+public final class Pair<T> {
 
     private T first;
     private T second;

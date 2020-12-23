@@ -1,6 +1,6 @@
 package exception;
 
-public class NoSuchUserException extends Exception {
+public final class NoSuchUserException extends Exception {
     public NoSuchUserException() {
     }
 

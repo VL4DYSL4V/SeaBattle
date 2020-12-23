@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/welcome")
-public class WelcomeController {
+public final class WelcomeController {
 
     @GetMapping
     public String welcome() {
@@ -28,4 +28,8 @@ public class WelcomeController {
         return "rules";
     }
 
+    @GetMapping("/aboutUs")
+    public String aboutUs(){
+        return "aboutUs";
+    }
 }

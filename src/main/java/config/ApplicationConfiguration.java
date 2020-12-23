@@ -1,5 +1,7 @@
 package config;
 
+import dao.HibUserDAO;
+import dao.UserDAO;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,13 +18,18 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.Locale;
 
 @Configuration
-@ComponentScan({"config", "controller"})
+@ComponentScan({"config", "controller", "initializer"})
 @EnableWebMvc
 public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean(name = "userDAO")
+    public UserDAO userDAO(){
+        return new HibUserDAO();
     }
 
     @Bean

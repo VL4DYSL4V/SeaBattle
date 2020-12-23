@@ -1,20 +1,26 @@
 package entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class User {
+@Table(name = "sea_battle_users")
+@Entity
+public final class User {
 
-    private String name;
+    @Id
+    @Column(name = "name")
+    private String login;
     private String password;
     private String email;
-    private int id;
+
+    @Transient
     private int battle_id;
 
     public User() {
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
     public String getPassword() {
@@ -25,16 +31,12 @@ public class User {
         return email;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public int getBattle_id() {
         return battle_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogin(String name) {
+        this.login = name;
     }
 
     public void setPassword(String password) {
@@ -43,10 +45,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setBattle_id(int battle_id) {
@@ -58,25 +56,23 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                battle_id == user.battle_id &&
-                Objects.equals(name, user.name) &&
+        return  battle_id == user.battle_id &&
+                Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password, email, id, battle_id);
+        return Objects.hash(login, password, email, battle_id);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "name='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", id=" + id +
                 ", battle_id=" + battle_id +
                 '}';
     }

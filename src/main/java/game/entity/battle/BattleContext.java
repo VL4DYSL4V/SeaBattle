@@ -1,60 +1,43 @@
 package game.entity.battle;
 
 import com.sun.istack.internal.Nullable;
+import game.entity.FieldDimension;
 import game.entity.Ship;
 import game.enums.Level;
 import game.enums.Turn;
 import game.moveStrategy.AdvancedServerMoveStrategy;
-import game.moveStrategy.LaboratoryMoveStrategy;
 import game.moveStrategy.MoveStrategy;
 import game.moveStrategy.SimpleServerMoveStrategy;
 
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
 
-//Can't implement pattern Builder, because all parameters are required :/
-public class BattleContext implements Serializable {
+public final class BattleContext {
 
-    private Collection<Ship> firstPlayerShips = new HashSet<>();
-    private Collection<Ship> secondPlayerShips = new HashSet<>();
-    private MoveStrategy moveStrategy = null;
+    private Collection<Ship> firstPlayerShips;
+    private Collection<Ship> secondPlayerShips;
+    private MoveStrategy moveStrategy;
     private Turn turn = Turn.PLAYER_1;
-    private boolean isClientServerContext;
-    private static final long serialVersionUID = -1311025019735470420L;
-
-    public BattleContext() {
-    }
 
     private BattleContext(Collection<Ship> firstPlayerShips, Collection<Ship> secondPlayerShips,
-                          MoveStrategy moveStrategy, boolean isClientServerContext) {
+                          MoveStrategy moveStrategy) {
         this.firstPlayerShips = firstPlayerShips;
         this.secondPlayerShips = secondPlayerShips;
         this.moveStrategy = moveStrategy;
-        this.isClientServerContext = isClientServerContext;
-    }
-
-    public static BattleContext clientClientContext(Collection<Ship> firstPlayerShips,
-                                                    Collection<Ship> secondPlayerShips) {
-        return new BattleContext(firstPlayerShips, secondPlayerShips,
-                null, false);
     }
 
     public static BattleContext clientServerContext(Collection<Ship> clientShips,
                                                     Collection<Ship> serverShips,
-                                                    Level level) {
+                                                    Level level, FieldDimension fieldDimension) {
         return new BattleContext(clientShips, serverShips,
-                createStrategy(level, clientShips), true);
+                createStrategy(level, clientShips, fieldDimension));
     }
 
-    private static MoveStrategy createStrategy(Level level, Collection<Ship> clientShips) {
+    private static MoveStrategy createStrategy(Level level, Collection<Ship> clientShips, FieldDimension fieldDimension) {
         if (level == Level.SIMPLE) {
-            return new SimpleServerMoveStrategy();
-        } else if (level == Level.LABORATORY) {
-            return new LaboratoryMoveStrategy();
+            return new SimpleServerMoveStrategy(fieldDimension);
         }
-        return new AdvancedServerMoveStrategy(clientShips);
+        return new AdvancedServerMoveStrategy(clientShips, fieldDimension);
     }
 
     public Collection<Ship> getFirstPlayerShips() {
@@ -78,10 +61,6 @@ public class BattleContext implements Serializable {
         return moveStrategy;
     }
 
-    public boolean isClientServerContext() {
-        return isClientServerContext;
-    }
-
     public boolean gameIsOver() {
         return firstPlayerShips.isEmpty() || secondPlayerShips.isEmpty();
     }
@@ -91,15 +70,14 @@ public class BattleContext implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BattleContext that = (BattleContext) o;
-        return isClientServerContext == that.isClientServerContext &&
-                Objects.equals(firstPlayerShips, that.firstPlayerShips) &&
+        return  Objects.equals(firstPlayerShips, that.firstPlayerShips) &&
                 Objects.equals(secondPlayerShips, that.secondPlayerShips) &&
                 turn == that.turn;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstPlayerShips, secondPlayerShips, turn, isClientServerContext);
+        return Objects.hash(firstPlayerShips, secondPlayerShips, turn);
     }
 
     @Override
@@ -109,7 +87,6 @@ public class BattleContext implements Serializable {
                 ", secondPlayerShips=" + secondPlayerShips +
                 ", moveStrategy=" + moveStrategy +
                 ", turn=" + turn +
-                ", isClientServerContext=" + isClientServerContext +
                 '}';
     }
 }

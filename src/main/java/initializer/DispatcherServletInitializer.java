@@ -1,8 +1,10 @@
-package config;
+package initializer;
 
+import config.ApplicationConfiguration;
+import config.SeaBattleSecurityConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public final class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[0];
@@ -10,7 +12,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{ApplicationConfiguration.class};
+        return new Class[]{ApplicationConfiguration.class, SeaBattleSecurityConfiguration.class};
     }
 
     @Override

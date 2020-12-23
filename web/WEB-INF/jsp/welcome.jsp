@@ -69,6 +69,15 @@
             <p>Before writing to administration, check this section: maybe there is an answer you desire!</p>
         </div>
     </div>
+    <div id="aboutUsContainer" class="contentContainer">
+        <div class ="centerElementWrapper">
+            <img src="" alt="*about us picture*" class="containerAvatar">
+        </div>
+        <form action="${pageContext.request.contextPath}/welcome/aboutUs" class="centerElementWrapper">
+            <input type="submit" value="About Us">
+        </form>
+    </div>
+
 </div>
 </body>
 </html>
