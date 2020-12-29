@@ -18,4 +18,9 @@ public final class MainController {
         return "main";
     }
 
+    @GetMapping("/battle")
+    public String findOpponent(){
+        return "";
+    }
+
 }

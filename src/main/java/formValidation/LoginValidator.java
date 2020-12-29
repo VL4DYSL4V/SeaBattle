@@ -11,7 +11,7 @@ public final class LoginValidator
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return userNamePattern.matcher(s).matches();
+        return userNamePattern.matcher(s).matches() && s.length() <= 30 && s.length() > 0;
     }
 
 }

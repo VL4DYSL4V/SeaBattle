@@ -58,7 +58,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
+        messageSource.setBasenames("messages", "formMessages");
         return messageSource;
     }
 }

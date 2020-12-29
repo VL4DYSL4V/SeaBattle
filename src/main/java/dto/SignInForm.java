@@ -1,7 +1,5 @@
 package dto;
 
-import formValidation.PasswordConstraint;
-
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
@@ -9,7 +7,7 @@ public final class SignInForm {
 
     @NotBlank(message = "enter login")
     private String login;
-    @PasswordConstraint(message = "enter password")
+    @NotBlank(message = "enter password")
     private String password;
 
     public SignInForm(){}

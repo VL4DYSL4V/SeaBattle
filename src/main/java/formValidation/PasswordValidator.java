@@ -8,7 +8,7 @@ public final class PasswordValidator
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s != null && s.length() >= 4;
+        return s != null && s.length() >= 4 && s.length() < 30;
     }
 
 }

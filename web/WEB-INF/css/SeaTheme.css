@@ -31,6 +31,16 @@
     background-size: cover;
 }
 
+.stoneBackground{
+    background-image: url('https://cdn1.savepice.ru/uploads/2020/12/28/11a620a7ac1e1dfabc420d7c04d3dfc3-full.jpg');
+    background-size: cover;
+}
+
+.sandBackground{
+    background-image: url("http://i.piccy.info/i9/052b0c5f1357e21d99c528052c8a05b4/1604181267/104558/1403093/sandBackground_800.jpg");
+    background-size: cover;
+}
+
 .centerElementWrapper{
     display: flex;
     align-items: center;
@@ -42,9 +52,10 @@
     font-weight: bold;
 }
 
-input[type=submit]{
+.standardButton{
     font-size: 1.35vw;
     border: 0.1vw black solid;
     background: transparent;
 }
+
 

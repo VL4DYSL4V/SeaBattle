@@ -8,11 +8,12 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/vladislav_db</property>
         <property name="connection.username">Vladislav</property>
         <property name="connection.password">vladislavsDB14235662@Java</property>
-        <property name="connection.pool_size">2</property>
+        <property name="connection.pool_size">10</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="entity.User"/>
+        <mapping class="entity.GameStatistics"/>
     </session-factory>
 </hibernate-configuration>

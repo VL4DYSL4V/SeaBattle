@@ -3,7 +3,9 @@ package controller;
 import dao.UserDAO;
 import dto.RegistrationForm;
 import entity.User;
+import exception.EmailIsTakenException;
 import exception.FailedRegistrationException;
+import exception.LoginIsTakenException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +27,11 @@ public final class SignUpController {
     }
 
     @GetMapping
-    public String setupForm(Model model){
+    public String setupForm(Model model, HttpServletRequest httpServletRequest) {
         model.addAttribute("registrationForm", new RegistrationForm());
+        if(httpServletRequest.getSession().getAttribute("user") != null){
+            httpServletRequest.getSession().removeAttribute("user");
+        }
         return "signUp";
     }
 
@@ -35,19 +40,27 @@ public final class SignUpController {
             @Valid @ModelAttribute("registrationForm") RegistrationForm registrationForm,
             BindingResult bindingResult,
             SessionStatus sessionStatus,
-            HttpServletRequest httpServletRequest){
-        if(bindingResult.hasErrors()){
+            HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
             return "/signUp";
         }
-        User user = new User();
-        user.setLogin(registrationForm.getLogin());
-        user.setPassword(registrationForm.getPassword());
-        user.setEmail(registrationForm.getEmail());
+        User user = User.createSeamanApprentice(registrationForm.getLogin(),
+                registrationForm.getPassword(),
+                registrationForm.getEmail());
         try {
             userDAO.register(user);
             httpServletRequest.getSession().setAttribute("user", user);
-        }catch (FailedRegistrationException e){
-            bindingResult.rejectValue("name", "formError.loginIsTaken", "Login is taken");
+        } catch (FailedRegistrationException e) {
+            Class<?> causeClass = e.getCause().getClass();
+            if (causeClass == LoginIsTakenException.class) {
+                bindingResult.rejectValue("login", "formError.loginIsTaken",
+                        "Login is taken");
+            }else if(causeClass == EmailIsTakenException.class){
+                bindingResult.rejectValue("email", "formError.emailIsTaken",
+                        "Email is taken");
+            } else {
+                e.printStackTrace();
+            }
             return "/signUp";
         }
         sessionStatus.setComplete();

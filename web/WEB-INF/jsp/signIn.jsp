@@ -17,7 +17,7 @@
 </div>
 <div class="centerElementWrapper">
     <div class="formHolder standardDarkFontColor bigTextFont">
-        <form:form method="post" modelAttribute="signInForm" cssClass="form">
+        <form:form method="post" modelAttribute="signInForm" cssClass="form sandBackground">
             <div class="formRow">
                 <div class="formCell">
                     <spring:message code="form.login" text="Login"/>
@@ -42,7 +42,7 @@
             </div>
             <div class="formRow">
                 <div class="formCell">
-                    <input type="submit" value="Sign in">
+                    <input type="submit" value="Sign in" class="standardButton">
                 </div>
             </div>
         </form:form>

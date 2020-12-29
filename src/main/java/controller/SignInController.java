@@ -25,8 +25,11 @@ public final class SignInController {
     }
 
     @GetMapping
-    public String setupForm(Model model) {
+    public String setupForm(Model model, HttpServletRequest httpServletRequest) {
         model.addAttribute("signInForm", new SignInForm());
+        if(httpServletRequest.getSession().getAttribute("user") != null){
+            httpServletRequest.getSession().removeAttribute("user");
+        }
         return "signIn";
     }
 
@@ -39,11 +42,7 @@ public final class SignInController {
             return "/signIn";
         }
         User user = userDAO.getByLogin(signInForm.getLogin());
-        if(user == null){
-            bindingResult.rejectValue("login", "formError.noSuchUser",
-                    "No such user");
-            return "/signIn";
-        }else if(!Objects.equals(user.getPassword(), signInForm.getPassword())){
+        if(user == null || !Objects.equals(user.getPassword(), signInForm.getPassword())){
             bindingResult.rejectValue("password", "formError.wrongPassword",
                     "Wrong password");
             return "/signIn";
