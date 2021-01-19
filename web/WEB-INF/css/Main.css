@@ -1,7 +1,8 @@
-.accountHolder{
+.contentWrapper{
     border: double bisque;
     width: fit-content;
     overflow: auto;
+    float: left;
 }
 
 .account{
@@ -66,4 +67,57 @@
     background-color: forestgreen;
     border-radius: 1em;
     padding: 1em;
+}
+
+#shipPlacementButtonHolder{
+    float: left;
+    display: grid;
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
+    margin-top: 2vw;
+}
+
+.shipPlacementButton{
+    border: none;
+    width: 3vw;
+    height: 3vw;
+    background-repeat: no-repeat;
+    background-size: 3vw 3vw;
+    background-color: transparent;
+}
+
+#cancelButton{
+    background-image:
+            url("https://cdn1.savepice.ru/uploads/2021/1/19/114facfc39668a015c1c1c76a22cf115-full.png");
+}
+
+#resetButton{
+    background-image:
+            url("https://cdn1.savepice.ru/uploads/2021/1/19/102e2b5a5d2d46ee3f9c0f861f11bcbc-full.png");
+}
+
+#turnAroundButton{
+    background-image:
+            url("https://cdn1.savepice.ru/uploads/2021/1/19/8ec1ebaef06ec609827add53ffc99343-full.png");
+}
+
+#confirmButton{
+    background-image:
+            url("https://cdn1.savepice.ru/uploads/2021/1/19/a8c2c89db072bbbe46ae75a048086678-full.png");
+}
+
+#generateButton{
+    background-image:
+            url("https://cdn1.savepice.ru/uploads/2021/1/19/645dff708a43a3ad7d82c333b3b660c1-full.png");
+}
+
+#battleButton{
+    font-size: 4vw;
+    border: 0.1vw black solid;
+    background: transparent;
+    color: aliceblue;
+}
+
+#battleButtonHolder{
+    margin-top: 1vw;
 }

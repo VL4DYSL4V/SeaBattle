@@ -20,3 +20,9 @@
     display: table-cell;
     padding-bottom: 0.5vw;
 }
+
+.error {
+    color: #ff0000;
+    font-weight: bold;
+}
+
