@@ -1,6 +1,4 @@
 <%@ page import="entity.User" %>
-<%@ page import="data.Rank" %>
-<%@ page import="enums.MarineRank" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -68,7 +66,7 @@
         </div>
     </div>
     <div id="shipPlacementDiv" class="contentWrapper" style="margin-left: 20vw; margin-top: 3vw;">
-        <canvas id="shipPlacementCanvas" width="350" height="350" style="float: left; background-color: blue;"></canvas>
+        <canvas id="shipPlacementCanvas" width="420" height="420" style="float: left;"></canvas>
         <div id="shipPlacementButtonHolder">
             <form class="stoneBackground">
                 <input type="submit" id="cancelButton" class="shipPlacementButton" value=""/>
@@ -112,7 +110,7 @@
 
     function fillRankProgress(currUserScores, previousPromotionScores, promotionScores) {
         const progressBar = document.getElementById("rankProgressBar");
-        const percentage = (currUserScores - previousPromotionScores) / (promotionScores - previousPromotionScores);
+        const percentage = 100 * (currUserScores - previousPromotionScores) / (promotionScores - previousPromotionScores);
         progressBar.style.setProperty('--width', String(percentage));
         progressBar.setAttribute("data-label", currUserScores + "/" + promotionScores);
     }
@@ -131,41 +129,23 @@
         statisticsDiv.style.display = "none";
     }
 
-    function drawGridOnShipPlacementCanvas() {
+    function drawField() {
         const shipPlacementCanvas = document.getElementById("shipPlacementCanvas");
         const context2D = shipPlacementCanvas.getContext("2d");
-        context2D.fillStyle = "rgb(0, 0, 0)";
-        context2D.lineWidth = 3;
-        const stripeWidth = shipPlacementCanvas.width / 12;
-        const stripeHeight = shipPlacementCanvas.height / 12;
-        for (i = 1; i < 12; i++) {
-            const x = i * stripeWidth;
-            context2D.moveTo(x, stripeHeight);
-            context2D.lineTo(x, stripeHeight * 11);
-            context2D.stroke();
-
-            const y = i * stripeHeight;
-            context2D.moveTo(stripeWidth, y);
-            context2D.lineTo(stripeWidth * 11, y);
-            context2D.stroke();
-        }
-
-        for(i = 1; i < 11; i++){
-            context2D.font = (stripeWidth - 1).toString() + "px Arial";
-            context2D.fillText(i.toString(), i * stripeWidth, stripeHeight);
-
-            context2D.font = (stripeHeight - 1).toString() + "px Arial";
-            context2D.fillText(i.toString(), 0, (i + 1) * stripeHeight);
-        }
+        const img = new Image();
+        img.onload = () => {
+            context2D.drawImage(img, 0, 0, shipPlacementCanvas.width, shipPlacementCanvas.height);
+        };
+        img.src = "https://cdn1.savepice.ru/uploads/2021/1/19/78cb8521abedc490e8d72ab5f3f1c676-full.png";
     }
 
-    drawRank('<%=Rank.of(u.getMarineRank()).getImageURL()%>');
-    drawRankRepresentationAndLogin('<%=Rank.of(u.getMarineRank()).getName()%>', '<%=u.getLogin()%>');
+    drawRank('<%=u.getRank().getImageURL()%>');
+    drawRankRepresentationAndLogin('<%=u.getRank().getRepresentation()%>', '<%=u.getLogin()%>');
     fillRankProgress(<%=u.getScores()%>,
-        <%=Rank.of(MarineRank.previous(u.getMarineRank())).getPromotionScores()%>,
-        <%=Rank.of(u.getMarineRank()).getPromotionScores()%>);
+        <%=u.getRank().getPreviousPromotionScores()%>,
+        <%=u.getRank().getPromotionScores()%>);
     hideStatistics();
-    drawGridOnShipPlacementCanvas();
+    drawField();
 
 </script>
 

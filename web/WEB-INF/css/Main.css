@@ -38,7 +38,7 @@
 
 .accountButton{
     color: aliceblue;
-    border: 0.3vw aliceblue;
+    border: 0.1vw aliceblue solid;
     width: 10vw;
     font-size: 1.35vw;
     background-color: forestgreen;
@@ -51,6 +51,7 @@
     background-color: #111;
     border-radius: 1.5em;
     color:aliceblue;
+    box-sizing: border-box;
 }
 
 .progress-bar::before{
@@ -63,7 +64,7 @@
     bottom: 0.5em;
     width: calc(var(--width, 0) * 1%);
     min-width: 2rem;
-    max-width: calc(100% - 1em);
+    max-width: calc(92% - 1em);
     background-color: forestgreen;
     border-radius: 1em;
     padding: 1em;
@@ -78,11 +79,11 @@
 }
 
 .shipPlacementButton{
-    border: none;
-    width: 3vw;
-    height: 3vw;
+    border: 0.1vw black solid;
+    width: 3.7vw;
+    height: 3.7vw;
     background-repeat: no-repeat;
-    background-size: 3vw 3vw;
+    background-size: 3.5vw 3.5vw;
     background-color: transparent;
 }
 
@@ -112,8 +113,8 @@
 }
 
 #battleButton{
-    font-size: 4vw;
-    border: 0.1vw black solid;
+    font-size: 3.7vw;
+    border: 0.15vw black solid;
     background: transparent;
     color: aliceblue;
 }

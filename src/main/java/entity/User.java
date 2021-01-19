@@ -1,7 +1,7 @@
 package entity;
 
-import data.Rank;
-import enums.MarineRank;
+import converter.RankToStringConverter;
+import enums.Rank;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -19,7 +19,8 @@ public final class User {
     private String email;
 
     @Column(name = "user_rank")
-    private MarineRank marineRank;
+    @Convert(converter = RankToStringConverter.class)
+    private Rank rank;
     private int scores;
     @OneToOne
     @JoinColumn(name = "gameStatistics_id")
@@ -28,26 +29,29 @@ public final class User {
     public User() {
     }
 
-    private User(String login, String password, String email, MarineRank marineRank, int scores, GameStatistics gameStatistics){
+    private User(String login, String password, String email, Rank rank, int scores, GameStatistics gameStatistics){
         this.login = login;
         this.password = password;
         this.email = email;
-        this.marineRank = marineRank;
+        this.rank = rank;
         this.scores = 0;
         this.gameStatistics = gameStatistics;
     }
 
     public static User createSeamanApprentice(String login, String password, String email){
         return new User(login, password, email,
-                MarineRank.SEAMAN_APPRENTICE, 0, new GameStatistics());
+                Rank.SEAMAN_APPRENTICE, 0, new GameStatistics());
     }
 
     public void promote(){
-        int scoresDifference = scores - Rank.of(marineRank).getPromotionScores();
+        int scoresDifference = scores - rank.getPromotionScores();
         while(scoresDifference >= 0){
-            marineRank = MarineRank.next(marineRank);
+            Rank nextRank = Rank.next(rank);
+            if(nextRank != null){
+                this.rank = nextRank;
+            }
             scores = scoresDifference;
-            scoresDifference -= Rank.of(marineRank).getPromotionScores();
+            scoresDifference -= rank.getPromotionScores();
         }
     }
 
@@ -75,12 +79,12 @@ public final class User {
         this.email = email;
     }
 
-    public MarineRank getMarineRank() {
-        return marineRank;
+    public Rank getRank() {
+        return rank;
     }
 
-    public void setMarineRank(MarineRank marineRank) {
-        this.marineRank = marineRank;
+    public void setRank(Rank marineRank) {
+        this.rank = marineRank;
     }
 
     public GameStatistics getGameStatistics() {
@@ -107,13 +111,13 @@ public final class User {
         return Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                marineRank == user.marineRank &&
+                rank == user.rank &&
                 Objects.equals(gameStatistics, user.gameStatistics);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, email, marineRank, gameStatistics);
+        return Objects.hash(login, password, email, rank, gameStatistics);
     }
 
     @Override
@@ -122,7 +126,7 @@ public final class User {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", rank=" + marineRank +
+                ", rank=" + rank +
                 ", gameStatistics=" + gameStatistics +
                 '}';
     }
